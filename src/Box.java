@@ -69,4 +69,9 @@ public class Box {
     public void setAgent(Boolean agent) {
         this.agent = agent;
     }
+
+    public Boolean toClean(){
+        return (this.dust || this.jewelry);
+    }
+
 }
