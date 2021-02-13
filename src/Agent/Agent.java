@@ -1,6 +1,7 @@
 package Agent;
 
 import Environment.*;
+import b.b.m.B;
 
 import java.util.*;
 
@@ -37,7 +38,7 @@ public class Agent {
         this.currentPosition = environment.getManor().getCase(0,0);
         environment.getManor().getCase(0,0).setAgent(true);
         this.effector = new Effector(this);
-        this.exploration_type = Exploration.BFS;
+        this.exploration_type = Exploration.A_STAR;
     }
 
     public void increaseEnergy(){
@@ -183,7 +184,7 @@ public class Agent {
                 break;
             //exploration informee
             case A_STAR:
-                //actions = a_STAR();
+                actions = a_STAR(desiredBox);
                 break;
         }
         return actions;
@@ -276,8 +277,64 @@ public class Agent {
         return actions;
     }
 
-    /*protected Stack<Action> a_STAR(){
+    protected Stack<Action> a_STAR(Box desiredBox){
+        List<Box> openList = new LinkedList<Box>();
+        Map<Box, Box> parent = new HashMap<>();
 
-    }*/
+        Map<Box, Double> gCost = new HashMap<>();
+        Map<Box, Double> fCost = new HashMap<>();
+        Box start = this.getCurrentPosition();
+
+        gCost.put(start, 0.0);
+        fCost.put(start, this.environment.getManor().getDistance(start,desiredBox));
+
+        openList.add(start);
+
+        while (!openList.isEmpty()){
+            Box currentBox = findBestScoreBox(openList, fCost);
+            if (currentBox == desiredBox){
+                return getActions(getHistoricPath(parent,currentBox));
+            }
+            openList.remove(currentBox);
+
+            List<Box> neighbors = this.getEnvironment().getManor().getNeighbors(currentBox);
+            for(Box box : neighbors){
+                Double score = gCost.getOrDefault(currentBox,Double.MAX_VALUE)+1;
+                if (score < gCost.getOrDefault(box, Double.MAX_VALUE)){
+                    parent.put(box,currentBox);
+                    gCost.put(box,score);
+                    fCost.put(box, gCost.get(box) + this.getEnvironment().getManor().getDistance(box,desiredBox));
+                    if(!openList.contains(box)){
+                        openList.add(box);
+                    }
+                }
+            }
+        }
+        return new Stack<>();
+    }
+
+    private Box findBestScoreBox(List<Box> openList, Map<Box,Double> fCost){
+        Double bestScore = Double.MAX_VALUE;
+        Box bestBox = openList.get(0);
+        for (Box box: openList) {
+            Double score_box = fCost.get(box);
+            if (score_box < bestScore){
+                bestBox = box;
+                bestScore = score_box;
+            }
+        }
+
+        return bestBox;
+    }
+
+    private Stack<Box> getHistoricPath(Map<Box, Box> parent, Box currentBox){
+        Stack<Box> path = new Stack<Box>();
+        path.push(currentBox);
+        while (parent.keySet().contains(currentBox)){
+            currentBox = parent.get(currentBox);
+            path.push(currentBox);
+        }
+        return path;
+    }
 
 }

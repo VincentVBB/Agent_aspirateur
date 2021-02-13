@@ -34,8 +34,8 @@ public class Manor {
         this.matrix[x][y] = newBox;
     }
 
-    public int getDistance(Box box1, Box box2){
-        return Math.abs(box2.getPosition_x() - box1.getPosition_x()) + Math.abs(box2.getPosition_y() - box1.getPosition_y());
+    public Double getDistance(Box box1, Box box2){
+        return Math.sqrt(Math.pow(box2.getPosition_x() - box1.getPosition_x(), 2) + Math.pow(box2.getPosition_y() - box1.getPosition_y(), 2));
     }
     public Box[][] getMatrix(){
         return this.matrix;
