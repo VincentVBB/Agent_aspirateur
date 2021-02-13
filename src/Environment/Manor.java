@@ -1,3 +1,6 @@
+package Environment;
+import Agent.*;
+
 import java.util.ArrayList;
 
 public class Manor {
@@ -57,6 +60,26 @@ public class Manor {
             neighbors.add(matrix[currentBox.getPosition_x()][currentBox.getPosition_y() + 1]);
         }
         return neighbors;
+    }
+
+    //regarde si la case 1 et au dessus de la case 2
+    public boolean isAbove(Box box1, Box box2){
+        return box1.getPosition_y() < box2.getPosition_y();
+    }
+
+    //regarde si la case 1 et en dessous de la case 2
+    public boolean isBellow(Box box1, Box box2){
+        return box1.getPosition_y() > box2.getPosition_y();
+    }
+
+    //regarde si la case 1 et a droite de la case 2
+    public boolean isAtRight(Box box1, Box box2){
+        return box1.getPosition_x() > box2.getPosition_x();
+    }
+
+    //regarde si la case 1 et a gauche de la case 2
+    public boolean isAtLeft(Box box1, Box box2){
+        return box1.getPosition_x() < box2.getPosition_x();
     }
 
 }

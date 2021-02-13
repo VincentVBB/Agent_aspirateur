@@ -1,3 +1,6 @@
+package Environment;
+import Agent.*;
+
 import java.util.Random;
 
 public class Environment {

@@ -1,4 +1,8 @@
+import Agent.*;
+import Environment.*;
+
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -8,6 +12,9 @@ public class Main {
 
             environment.makeRandomDust();
             environment.makeRandomJewelry();
+            agent.setEnvironment(environment);
+
+            agent.runAgent();
 
 
             Thread.sleep(2000);

@@ -1,3 +1,6 @@
+package Environment;
+import Agent.*;
+
 public class Box {
     private int position_x;
     private int position_y;
