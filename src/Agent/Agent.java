@@ -1,7 +1,6 @@
 package Agent;
 
 import Environment.*;
-
 import java.util.*;
 
 public class Agent implements Runnable{
@@ -112,17 +111,10 @@ public class Agent implements Runnable{
                 this.environment.manorUI();
                 try {
                     Thread.sleep(740);
-                }catch (Exception e) {
-
-                }
-
+                }catch (Exception e) { }
             }
         }
-
-
-
     }
-
 
 
     public void makeAction(Action action) throws InterruptedException {
@@ -150,7 +142,6 @@ public class Agent implements Runnable{
                 return;
         }
         increaseEnergy();
-        System.out.println(getEnergy());
         Thread.sleep(200);
     }
 
@@ -283,12 +274,10 @@ public class Agent implements Runnable{
             if (desiredBox.getJewelry()){
                 actions.push(Action.PICK);
             }
-
             while (!actionPath.isEmpty()){
                 actions.push(actionPath.get(0));
                 actionPath.remove(0);
             }
-
         }
         return actions;
     }
@@ -339,7 +328,6 @@ public class Agent implements Runnable{
                 bestScore = score_box;
             }
         }
-
         return bestBox;
     }
 
