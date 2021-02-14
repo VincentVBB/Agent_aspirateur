@@ -100,7 +100,14 @@ public class Agent implements Runnable{
         this.environment = environment;
     }
 
+    // cette fonction décrit le fonctionnment type de l'agent :
+    // Tout d'abord, il demande a son capteur d'analyser le terrain pour
+    // lui retransmettre toutes les cases non vides.
+    // Ensuite l'agent choisi parmis les croyances le derire voulu.
+    // ENsuite, il calcul les intentions liées à ce désire pour
+    // faire les actions qui en résulte.
     public void runAgent() throws InterruptedException {
+
         while (true){
             ArrayList<Box> beliefs = getCaptor().getBelief(this.environment);
             Box desire = getDesire(beliefs);
@@ -116,7 +123,7 @@ public class Agent implements Runnable{
         }
     }
 
-
+    // L'agent donne une instruction d'action a faire a son effecteur.
     public void makeAction(Action action) throws InterruptedException {
         if(action == null) { return; }
         switch (action){
@@ -145,6 +152,8 @@ public class Agent implements Runnable{
         Thread.sleep(200);
     }
 
+    // cette fonction calcule calcule la box la plus optimisée
+    // pour cela, L'algorithme appelle une fonction qui calculera un score pour chaque croyance.
     public Box getDesire(ArrayList<Box> beliefs){
         Box bestBox = null;
         double bestPerformance = Integer.MIN_VALUE;
@@ -158,7 +167,10 @@ public class Agent implements Runnable{
         }
         return bestBox;
     }
-    
+
+    // cette fonction calcul un score associée à une box.
+    // Les points sont donnés si il y a de la poussière et un bijoux, où bien que l'un d'en eux.
+    // Mais aussi en fonction de la distance à l'arrivée et du coût en énergie.
     private double getScoreBox(Box box) {
         int scoreBox = 0;
         int costAction = 0;
@@ -175,6 +187,7 @@ public class Agent implements Runnable{
         return scoreBox - energy;
     }
 
+    // Permet d'avoir une pile d'action à effectuer pour atteindre la box désirée.
     public Stack<Action> getIntention(Manor manor, Box desiredBox){
         if(desiredBox == null){
             return new Stack<>();
@@ -182,6 +195,7 @@ public class Agent implements Runnable{
         return explore(manor, desiredBox);
     }
 
+    // Appel l'algorithme BFS où A* en fonction de la demande.
     public Stack<Action> explore(Manor manor, Box desiredBox){
         Stack<Action> actions = null;
         switch (this.exploration_type){
@@ -197,6 +211,8 @@ public class Agent implements Runnable{
         return actions;
     }
 
+    // Calcul le chemin le plus simple pour atteindre la case désirée.
+    // Le chemin est représenté par une pile d'instruction a faire.
     protected Stack<Action> bFS(Box desiredBox){
 
         //<enfant,parent>
@@ -243,6 +259,8 @@ public class Agent implements Runnable{
         return actions;
     }
 
+    // Cette fonction permet d'avoir une pile d'action à partir d'une pile de box.
+    // c'est en executant ces actions que l'agent pourra ce diriger vers la box désirée.
     protected Stack<Action> getActions(Stack<Box> path){
 
         List<Action> actionPath = new ArrayList<Action>();

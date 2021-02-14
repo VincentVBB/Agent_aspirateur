@@ -8,9 +8,8 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-
-
         Boolean run = true;
+
         while (run){
             System.out.println("Welcome to the intelligent Agent");
             System.out.println("He was named 'VacuumCleanerMax'");
