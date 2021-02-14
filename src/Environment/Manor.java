@@ -82,4 +82,6 @@ public class Manor {
         return box1.getPosition_x() < box2.getPosition_x();
     }
 
+
+
 }

@@ -5,22 +5,10 @@ import Environment.*;
 import java.util.ArrayList;
 
 public class Captor {
-    Environment environment;
 
-    public Captor(Environment environment) {
-        this.environment = environment;
-    }
-
-    public Environment getEnvironment() {
-        return environment;
-    }
-
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
 
     //return all boxes to clean
-    public ArrayList<Box> getBelief(){
+    public ArrayList<Box> getBelief(Environment environment){
         Manor manor = environment.getManor();
         ArrayList<Box> boxesToClean = new ArrayList<>();
         for (int x = 0; x<manor.getSize(); x++){

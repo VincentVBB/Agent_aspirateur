@@ -1,11 +1,10 @@
 package Agent;
 
 import Environment.*;
-import b.b.m.B;
 
 import java.util.*;
 
-public class Agent {
+public class Agent implements Runnable{
     private int energy;
     private int score;
     private Box currentPosition;
@@ -13,6 +12,15 @@ public class Agent {
     private Effector effector;
     private Environment environment;
     private Exploration exploration_type;
+
+    @Override
+    public void run() {
+        try {
+            runAgent();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     //Liste des actions possibles a effectuer par l'agent
     public enum Action {
@@ -30,15 +38,15 @@ public class Agent {
         A_STAR
     }
 
-    public Agent(Environment environment) {
+    public Agent(Environment environment, Exploration exploration) {
         this.environment = environment;
-        this.captor = new Captor(environment);
+        this.captor = new Captor();
         this.energy = 0;
         this.score = 0;
         this.currentPosition = environment.getManor().getCase(0,0);
         environment.getManor().getCase(0,0).setAgent(true);
         this.effector = new Effector(this);
-        this.exploration_type = Exploration.A_STAR;
+        this.exploration_type = exploration;
     }
 
     public void increaseEnergy(){
@@ -93,21 +101,31 @@ public class Agent {
         this.environment = environment;
     }
 
-    public void runAgent(){
+    public void runAgent() throws InterruptedException {
+        while (true){
+            ArrayList<Box> beliefs = getCaptor().getBelief(this.environment);
+            Box desire = getDesire(beliefs);
+            Stack<Agent.Action> intentions = getIntention(getEnvironment().getManor(), desire);
+            while (!intentions.isEmpty()){
+                Action action = intentions.pop();
+                makeAction(action);
+                this.environment.manorUI();
+                try {
+                    Thread.sleep(740);
+                }catch (Exception e) {
 
-        ArrayList<Box> beliefs = getCaptor().getBelief();
-        Box desire = getDesire(beliefs);
-        Stack<Agent.Action> intentions = getIntention(getEnvironment().getManor(), desire);
-        while (!intentions.isEmpty()){
-            Action action = intentions.pop();
-            makeAction(action);
+                }
+
+            }
         }
+
+
 
     }
 
 
 
-    public void makeAction(Action action){
+    public void makeAction(Action action) throws InterruptedException {
         if(action == null) { return; }
         switch (action){
             case PICK:
@@ -131,7 +149,9 @@ public class Agent {
             default:
                 return;
         }
-
+        increaseEnergy();
+        System.out.println(getEnergy());
+        Thread.sleep(200);
     }
 
     public Box getDesire(ArrayList<Box> beliefs){
@@ -144,10 +164,6 @@ public class Agent {
                 bestBox = box;
                 bestPerformance = currentPerformance;
             }
-        }
-        if (bestBox != null){
-            System.out.println("Meilleure case | x : " + bestBox.getPosition_x() + " y : " + bestBox.getPosition_y());
-
         }
         return bestBox;
     }
