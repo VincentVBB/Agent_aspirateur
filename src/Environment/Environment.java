@@ -57,7 +57,12 @@ public class Environment implements Runnable {
 
     }
 
-
+    // cette fonction permet d'avoir un visuel primitif du manoir.
+    // La case signalée avec X est celle où l'agent ce trouve,
+    // celles avec B contiennent de la poussière et des bijoux,
+    // Celles avec J contiennent des bijoux
+    // et enfin, celles avec D sont celles contenant de la poussière.
+    // Les cases vides sont représentée par une étoile.
     public void manorUI(){
         clearScreen();
         System.out.println("---------------------------------");
@@ -88,30 +93,7 @@ public class Environment implements Runnable {
 
     }
 
-    public final static void clearConsole()
-    {
-
-        try
-        {
-            final String os = System.getProperty("os.name");
-            if (os.contains("Windows"))
-            {
-                Runtime.getRuntime().exec("cls");
-            }
-            else
-            {
-                Runtime.getRuntime().exec("clear");
-                System.out.flush();
-            }
-
-        }
-
-        catch (final Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-
+    // cette fonction à pour but de clear la console pour avoir un aperçu plus "dynamique"
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

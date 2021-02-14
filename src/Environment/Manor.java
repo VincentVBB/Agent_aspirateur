@@ -7,6 +7,7 @@ public class Manor {
     private Box[][] matrix;
     private int size;
 
+    // Crée un objet Manoir avec une matrice initialisée avec des cases vides. (sans poussières et bijoux)
     public Manor(int size) {
         this.size = size;
         this.matrix = new Box[size][size];
@@ -34,6 +35,9 @@ public class Manor {
         this.matrix[x][y] = newBox;
     }
 
+
+    // entrées : Deux cases
+    // sortie : la distance qui sépare les deux cases données en paramètres/
     public Double getDistance(Box box1, Box box2){
         return Math.sqrt(Math.pow(box2.getPosition_x() - box1.getPosition_x(), 2) + Math.pow(box2.getPosition_y() - box1.getPosition_y(), 2));
     }
@@ -41,6 +45,7 @@ public class Manor {
         return this.matrix;
     }
 
+    //La fonction retourne une liste contenant les voisins directs de la box donnée en paramètre.
     public ArrayList<Box> getNeighbors(Box currentBox){
         ArrayList<Box> neighbors = new ArrayList<>();
         //if currentBox have left neighbor
@@ -62,22 +67,21 @@ public class Manor {
         return neighbors;
     }
 
-    //regarde si la case 1 et au dessus de la case 2
+
+    //Les fonctions ci-dessous permettent de voir le positionnement d'une case par rapport à une autre.
+
     public boolean isAbove(Box box1, Box box2){
         return box1.getPosition_y() < box2.getPosition_y();
     }
 
-    //regarde si la case 1 et en dessous de la case 2
     public boolean isBellow(Box box1, Box box2){
         return box1.getPosition_y() > box2.getPosition_y();
     }
 
-    //regarde si la case 1 et a droite de la case 2
     public boolean isAtRight(Box box1, Box box2){
         return box1.getPosition_x() > box2.getPosition_x();
     }
 
-    //regarde si la case 1 et a gauche de la case 2
     public boolean isAtLeft(Box box1, Box box2){
         return box1.getPosition_x() < box2.getPosition_x();
     }
