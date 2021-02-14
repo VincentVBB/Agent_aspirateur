@@ -1,10 +1,9 @@
 import Agent.*;
 import Environment.*;
+import sun.misc.Signal;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {

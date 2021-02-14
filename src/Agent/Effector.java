@@ -1,18 +1,10 @@
 package Agent;
 
-import Environment.*;
-
 public class Effector {
     private Agent agent;
 
     public Effector(Agent agent){
         this.agent = agent;
-    }
-
-    public void move(Box box){
-        this.agent.getEnvironment().getManor().getCase(box.getPosition_x(), box.getPosition_y()).setAgent(true);
-        this.agent.getEnvironment().getManor().getCase(agent.getCurrentPosition().getPosition_x(), agent.getCurrentPosition().getPosition_y()).setAgent(false);
-        agent.setCurrentPosition(box);
     }
 
     public void move_left(){
@@ -38,9 +30,8 @@ public class Effector {
         agent.setCurrentPosition(this.agent.getEnvironment().getManor().getCase(agent.getCurrentPosition().getPosition_x(), agent.getCurrentPosition().getPosition_y() + 1));
     }
 
-
-    //verif si il n'y a pas de bijoux avant d'aspirer
     public void vacuum(){
+        System.out.println("J'aspire");
         agent.getCurrentPosition().setDust(false);
         agent.getEnvironment().getManor().getCase(agent.getCurrentPosition().getPosition_x(),agent.getCurrentPosition().getPosition_y()).setDust(false);
         if (agent.getCurrentPosition().getJewelry()){
@@ -54,6 +45,7 @@ public class Effector {
 
     }
     public void pick(){
+        System.out.println("Je ramasse");
         agent.setScore(1);
         agent.getCurrentPosition().setJewelry(false);
         agent.getEnvironment().getManor().getCase(agent.getCurrentPosition().getPosition_x(),agent.getCurrentPosition().getPosition_y()).setJewelry(false);

@@ -1,5 +1,4 @@
 package Environment;
-import Agent.*;
 
 import java.util.Random;
 
@@ -14,15 +13,12 @@ public class Environment implements Runnable {
         return manor;
     }
 
-    public void setManor(Manor manor) {
-        this.manor = manor;
-    }
-
     public void makeRandomDust(){
         if (genererInt(1,100)<=30){
             int x = genererInt(0,manor.getSize());
             int y = genererInt(0,manor.getSize());
             this.manor.getCase(x,y).setDust(true);
+            System.out.println("Nouvelle poussière");
         }
     }
 
@@ -31,15 +27,18 @@ public class Environment implements Runnable {
             int x = genererInt(0,manor.getSize());
             int y = genererInt(0,manor.getSize());
             this.manor.getCase(x,y).setJewelry(true);
+            System.out.println("Nouveau bijoux");
+
         }
     }
-
 
     private int genererInt(int borneInf, int borneSup){
         Random random = new Random();
         return borneInf+random.nextInt(borneSup-borneInf);
     }
 
+    /* Appelle les fonctions qui crée aléatoirement les poussières et les bijoux dans le manoir
+    Actualise l'interface graphique */
     @Override
     public void run() {
         while (true){

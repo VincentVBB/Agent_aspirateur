@@ -1,5 +1,4 @@
 package Environment;
-import Agent.*;
 
 public class Box {
     private int position_x;

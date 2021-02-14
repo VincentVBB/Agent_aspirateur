@@ -1,6 +1,8 @@
 package Agent;
 
 import Environment.*;
+import sun.misc.Signal;
+
 import java.util.*;
 
 public class Agent implements Runnable{
@@ -56,10 +58,6 @@ public class Agent implements Runnable{
         return energy;
     }
 
-    public void setEnergy(int energy) {
-        this.energy = energy;
-    }
-
     public int getScore() {
         return score;
     }
@@ -113,14 +111,24 @@ public class Agent implements Runnable{
             Box desire = getDesire(beliefs);
             Stack<Agent.Action> intentions = getIntention(getEnvironment().getManor(), desire);
             while (!intentions.isEmpty()){
+                System.out.println("J'ai des intentions, j'y vais !!!");
                 Action action = intentions.pop();
                 makeAction(action);
                 this.environment.manorUI();
                 try {
-                    Thread.sleep(740);
+                    Thread.sleep(800);
                 }catch (Exception e) { }
             }
+            Signal.handle(new Signal("INT"), sig -> agentClose());
         }
+    }
+
+    public void agentClose(){
+        System.out.println();
+        System.out.println("Mon score global est : " + this.getScore());
+        System.out.println("J'ai depense " + this.getEnergy() + " unite d'energie");
+
+        System.exit(0);
     }
 
     // L'agent donne une instruction d'action a faire a son effecteur.
@@ -212,7 +220,8 @@ public class Agent implements Runnable{
     }
 
     // Calcul le chemin le plus simple pour atteindre la case désirée.
-    // Le chemin est représenté par une pile d'instruction a faire.
+    // Le chemin est représenté par une pile d'instructions a faire.
+    // Prend en paramètre la collection de cases desiredBox
     protected Stack<Action> bFS(Box desiredBox){
 
         //<enfant,parent>
@@ -259,7 +268,7 @@ public class Agent implements Runnable{
         return actions;
     }
 
-    // Cette fonction permet d'avoir une pile d'action à partir d'une pile de box.
+    // Cette fonction permet d'avoir une pile d'actions à partir d'une pile de cases.
     // c'est en executant ces actions que l'agent pourra ce diriger vers la box désirée.
     protected Stack<Action> getActions(Stack<Box> path){
 
@@ -300,6 +309,8 @@ public class Agent implements Runnable{
         return actions;
     }
 
+    /* Calcule le chemmin avec la fonction d evaluation la plus petite pour atteindre la desiredBox
+    * Le chemin est représenté par une pile d'instructions a effectuer. */
     protected Stack<Action> a_STAR(Box desiredBox){
         List<Box> openList = new LinkedList<Box>();
         Map<Box, Box> parent = new HashMap<>();
@@ -336,6 +347,8 @@ public class Agent implements Runnable{
         return new Stack<>();
     }
 
+    /* fonction privee necessaire pour l'algorithme a_STAR
+    * Trouve la case avec le fcost le plus petit */
     private Box findBestScoreBox(List<Box> openList, Map<Box,Double> fCost){
         Double bestScore = Double.MAX_VALUE;
         Box bestBox = openList.get(0);
@@ -349,6 +362,8 @@ public class Agent implements Runnable{
         return bestBox;
     }
 
+    /*fonction privee utilisee dans l'algorithme a_STAR
+    * reconstruit le chemin partant de la case initiale jusqu a la desiredBox */
     private Stack<Box> getHistoricPath(Map<Box, Box> parent, Box currentBox){
         Stack<Box> path = new Stack<Box>();
         path.push(currentBox);
