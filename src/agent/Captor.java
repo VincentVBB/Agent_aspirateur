@@ -1,6 +1,6 @@
-package Agent;
+package agent;
 
-import Environment.*;
+import environment.*;
 import java.util.ArrayList;
 
 public class Captor {

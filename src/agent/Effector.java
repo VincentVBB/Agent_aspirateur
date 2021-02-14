@@ -1,4 +1,4 @@
-package Agent;
+package agent;
 
 public class Effector {
     private Agent agent;

@@ -1,6 +1,5 @@
-import Agent.*;
-import Environment.*;
-import sun.misc.Signal;
+import agent.*;
+import environment.*;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,8 +12,8 @@ public class Main {
             System.out.println("Welcome to the intelligent Agent");
             System.out.println("He was named 'VacuumCleanerMax'");
 
-            System.out.println("Please, choose the desired exploration\n\t1) Exploration BFS\n\t2) Exploration A*");
-            System.out.println("1 or 2 : ");
+            System.out.println("Please, choose the desired exploration\n\t1 for Exploration BFS\n\t2 for Exploration A*");
+            System.out.println("Choose 1 or 2 : ");
             Scanner sc = new Scanner(System.in);
             String choice = sc.nextLine();
             int choice_number = Integer.parseInt(choice.trim());

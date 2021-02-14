@@ -1,6 +1,6 @@
-package Agent;
+package agent;
 
-import Environment.*;
+import environment.*;
 import sun.misc.Signal;
 
 import java.util.*;
@@ -221,7 +221,7 @@ public class Agent implements Runnable{
 
     // Calcul le chemin le plus simple pour atteindre la case désirée.
     // Le chemin est représenté par une pile d'instructions a faire.
-    // Prend en paramètre la collection de cases desiredBox
+    // Prend en paramètre la desiredBox
     protected Stack<Action> bFS(Box desiredBox){
 
         //<enfant,parent>

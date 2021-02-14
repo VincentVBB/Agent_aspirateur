@@ -1,4 +1,4 @@
-package Environment;
+package environment;
 
 public class Box {
     private int position_x;
