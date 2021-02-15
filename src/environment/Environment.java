@@ -18,7 +18,6 @@ public class Environment implements Runnable {
             int x = genererInt(0,manor.getSize());
             int y = genererInt(0,manor.getSize());
             this.manor.getCase(x,y).setDust(true);
-            System.out.println("Nouvelle poussière");
         }
     }
 
@@ -27,9 +26,7 @@ public class Environment implements Runnable {
             int x = genererInt(0,manor.getSize());
             int y = genererInt(0,manor.getSize());
             this.manor.getCase(x,y).setJewelry(true);
-            System.out.println("Nouveau bijoux");
-
-        }
+          }
     }
 
     private int genererInt(int borneInf, int borneSup){

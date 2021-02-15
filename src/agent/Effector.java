@@ -31,7 +31,6 @@ public class Effector {
     }
 
     public void vacuum(){
-        System.out.println("J'aspire");
         agent.getCurrentPosition().setDust(false);
         agent.getEnvironment().getManor().getCase(agent.getCurrentPosition().getPosition_x(),agent.getCurrentPosition().getPosition_y()).setDust(false);
         if (agent.getCurrentPosition().getJewelry()){
@@ -45,7 +44,6 @@ public class Effector {
 
     }
     public void pick(){
-        System.out.println("Je ramasse");
         agent.setScore(1);
         agent.getCurrentPosition().setJewelry(false);
         agent.getEnvironment().getManor().getCase(agent.getCurrentPosition().getPosition_x(),agent.getCurrentPosition().getPosition_y()).setJewelry(false);

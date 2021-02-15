@@ -111,7 +111,6 @@ public class Agent implements Runnable{
             Box desire = getDesire(beliefs);
             Stack<Agent.Action> intentions = getIntention(getEnvironment().getManor(), desire);
             while (!intentions.isEmpty()){
-                System.out.println("J'ai des intentions, j'y vais !!!");
                 Action action = intentions.pop();
                 makeAction(action);
                 this.environment.manorUI();
